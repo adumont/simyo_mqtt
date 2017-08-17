@@ -4,7 +4,7 @@ import random
 import re
 import sys
 import paho.mqtt.client as paho
-import urlparse
+from urllib.parse import urlparse
 
 # Load Heroku Config Variables (https://devcenter.heroku.com/articles/config-vars)
 SIMYO_USER = os.environ['SIMYO_USER']
@@ -37,7 +37,7 @@ mqttc.on_subscribe = on_subscribe
 
 # Parse CLOUDMQTT_URL (or fallback to localhost)
 url_str = os.environ.get('CLOUDMQTT_URL', 'mqtt://localhost:1883')
-url = urlparse.urlparse(url_str)
+url = urlparse(url_str)
 
 # Connect
 mqttc.username_pw_set(url.username, url.password)
