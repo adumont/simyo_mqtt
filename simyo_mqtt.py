@@ -168,8 +168,11 @@ def subscriptions():
                 msisdn = subscription['msisdn']
                 subscriberId = subscription['subscriberId']
                 payType = subscription['subscriberId']
-                if msisdn == SIMYO_NUMB:
-                        break
+
+                # retrieve consumption for this number
+                data=consumptionByCycle()
+                # Publish a message
+                mqttc.publish("simyo/"+msisdn+"/consumptionsByCycle", json.dumps(data, separators=(',',':')), retain=True)
 
 # source: https://github.com/poliva/random-scripts/tree/master/simyo
 def consumptionByCycle(billCycleCount=1):
@@ -184,11 +187,7 @@ def main(argv):
 
     api_login()
     subscriptions()
-    data=consumptionByCycle()
     api_logout()
-
-    # Publish a message
-    mqttc.publish("simyo/"+SIMYO_NUMB+"/consumptionsByCycle", json.dumps(data, separators=(',',':')), retain=True)
 
     sys.exit(0)
 
