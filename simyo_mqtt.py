@@ -4,7 +4,6 @@ import random
 import re
 import sys
 import paho.mqtt.client as paho
-#from urllib.parse import urlparse
 import urlparse
 import argparse
 import pyDes
