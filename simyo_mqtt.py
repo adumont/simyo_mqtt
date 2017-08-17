@@ -188,7 +188,7 @@ def main(argv):
     api_logout()
 
     # Publish a message
-    mqttc.publish("simyo/"+SIMYO_NUMB+"/consumptionsByCycle", json.dumps(data, separators=(',',':')))
+    mqttc.publish("simyo/"+SIMYO_NUMB+"/consumptionsByCycle", json.dumps(data, separators=(',',':')), retain=True)
 
     sys.exit(0)
 
