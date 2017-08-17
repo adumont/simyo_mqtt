@@ -3,7 +3,8 @@ import getopt
 import random
 import re
 import sys
-import mosquitto, os, urlparse
+import paho.mqtt.client as paho
+import urlparse
 
 # Load Heroku Config Variables (https://devcenter.heroku.com/articles/config-vars)
 SIMYO_USER = os.environ['SIMYO_USER']
@@ -27,7 +28,7 @@ def on_subscribe(mosq, obj, mid, granted_qos):
 def on_log(mosq, obj, level, string):
     print(string)
 
-mqttc = mosquitto.Mosquitto()
+mqttc = paho.Client()
 # Assign event callbacks
 mqttc.on_message = on_message
 mqttc.on_connect = on_connect
@@ -45,6 +46,6 @@ mqttc.connect(url.hostname, url.port)
 def main(argv):
     # Publish a message
     mqttc.publish("hello/world", "my message")
-        
+
 if __name__ == "__main__":
     main(sys.argv[1:])
