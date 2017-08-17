@@ -1,0 +1,33 @@
+{
+    "name": "Simyo MQTT",
+    "description": "Get Simyo data and post to an MQTT broker",
+    "keywords": [
+        "simyo",
+        "voice",
+        "data",
+        "billCycleNumber"
+    ],
+    "repository": "https://github.com/adumont/simyo_mqtt",
+    "env": {
+        "SIMYO_USER": {
+            "description": "Your Simyo Account username",
+            "value": ""
+        },
+        "SIMYO_PASS": {
+            "description": "Your Simyo Account password",
+            "value": ""
+        },
+        "SIMYO_NUMB": {
+            "description": "Your Simyo phone number"
+        },
+        "DEBUG": {
+            "description": "",
+            "value": "False",
+            "required": false
+        }
+    },
+    "addons": [
+        "scheduler:standard",
+        "cloudmqtt:cat"
+    ]
+}

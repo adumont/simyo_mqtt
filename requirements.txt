@@ -1,0 +1,3 @@
+pyDes
+mosquitto
+urlparse
