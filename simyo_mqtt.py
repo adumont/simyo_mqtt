@@ -22,6 +22,7 @@ from time import time
 SIMYO_USER = os.environ['SIMYO_USER']
 SIMYO_PASS = os.environ['SIMYO_PASS']
 SIMYO_NUMB = os.environ['SIMYO_NUMB']
+BASE_URL = os.getenv('BASE_URL', 'https://api.simyo.es/simyo-api/')
 VERBOSE = os.getenv('DEBUG', False) == "True"
 
 # Define event callbacks
@@ -135,7 +136,7 @@ def api_request(url, data="", check=True):
 
 # source: https://github.com/poliva/random-scripts/tree/master/simyo
 def api_logout():
-        URL="https://api.simyo.es/api/logout?sessionId=" + str(sessionId)
+        URL=BASE_URL+"/logout?sessionId=" + str(sessionId)
         result = api_request(URL,"",False)
         if VERBOSE: print result + "\n"
 
@@ -144,7 +145,7 @@ def api_login():
         global sessionId, customerId
 
         SIMYOPASS = simyopass()
-        URL="https://api.simyo.es/api/login?"
+        URL=BASE_URL+"/login?"
         data = "user=" + SIMYO_USER + "&password=" + SIMYOPASS + "&apiSig=null"
         result = api_request(URL,data)
         if VERBOSE: print result + "\n"
@@ -156,7 +157,7 @@ def api_login():
 def subscriptions():
         global registerDate, mainProductId, billCycleType, msisdn, subscriberId, payType
 
-        URL="https://api.simyo.es/api/subscriptions/" + str(customerId) + "?sessionId=" + str(sessionId)
+        URL=BASE_URL+"/subscriptions/" + str(customerId) + "?sessionId=" + str(sessionId)
         result = api_request(URL)
         if VERBOSE: print result + "\n"
 
@@ -176,7 +177,7 @@ def subscriptions():
 
 # source: https://github.com/poliva/random-scripts/tree/master/simyo
 def consumptionByCycle(billCycleCount=1):
-        URL="https://api.simyo.es/api/consumptionByCycle/" + str(customerId) + "?sessionId=" + str(sessionId) + "&msisdn=" + str(msisdn) + "&billCycleType=" + str(billCycleType) + "&registerDate=" + str(registerDate) + "&billCycle=" + str(billCycle) + "&billCycleCount=" + str(billCycleCount) + "&payType=" + str(payType)
+        URL=BASE_URL+"/consumptionByCycle/" + str(customerId) + "?sessionId=" + str(sessionId) + "&msisdn=" + str(msisdn) + "&billCycleType=" + str(billCycleType) + "&registerDate=" + str(registerDate) + "&billCycle=" + str(billCycle) + "&billCycleCount=" + str(billCycleCount) + "&payType=" + str(payType)
         result = api_request(URL)
         data = json.loads(result)['response']['consumptionsByCycle'][0]
         return data
