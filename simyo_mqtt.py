@@ -1,3 +1,5 @@
+# If keys won't work anymore, see methods to update keys at:
+# https://github.com/adumont/simyo_mqtt/blob/master/README.md
 import os
 import getopt
 import random
