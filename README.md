@@ -36,7 +36,19 @@ Uninstall the app from the phone, and install the patch version:
 $ adb install base.objection.apk
 ```
 
-Get trace.js from the repository. (adapted from https://github.com/iddoeldor/frida-snippets#trace-class)
+If it fails with `INSTALL_FAILED_VERIFICATION_FAILURE` (see [this](https://stackoverflow.com/a/34666037/728281)), run:
+
+```
+$ adb shell settings put global verifier_verify_adb_installs 0
+```
+
+Sometimes you will need to disable the package verifier as well using:
+
+```
+$ adb shell settings put global package_verifier_enable 0
+```
+
+Get trace.js from this repository. (adapted from https://github.com/iddoeldor/frida-snippets#trace-class)
 
 Run the patched App on the phone. It will pause until you run objection explore:
 
